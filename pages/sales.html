@@ -1,3 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KenyaPOS Sales</title>
+
+<!-- Connect your CSS -->
+<link rel="stylesheet" href="../style.css">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+
+<body>
+
+
+<!-- START SALES PAGE -->
+
+PASTE ALL THE CODE YOU SENT HERE
 <!-- Sales Stats -->
 <div class="stats-grid">
     <div class="stat-card">
@@ -176,3 +200,74 @@
         </button>
     </div>
 </div>
+
+    <div class="card">
+    <div class="card-header">
+        <h3>Sales History</h3>
+    </div>
+    <div class="card-body">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
+            <input type="text" id="salesSearch" placeholder="Search by ID or customer..."
+                   style="flex:1;min-width:200px;padding:8px 12px;border:1px solid #e2e8f0;border-radius:6px;">
+            <select id="salesMethodFilter" style="padding:8px 12px;border:1px solid #e2e8f0;border-radius:6px;">
+                <option value="all">All Methods</option>
+                <option value="cash">Cash</option>
+                <option value="mpesa">M-Pesa</option>
+                <option value="card">Card</option>
+            </select>
+            <input type="date" id="salesStartDate" 
+                   style="padding:8px 12px;border:1px solid #e2e8f0;border-radius:6px;">
+            <input type="date" id="salesEndDate" 
+                   style="padding:8px 12px;border:1px solid #e2e8f0;border-radius:6px;">
+        </div>
+
+        <div class="sales-stats-row">
+            <div class="stat-card">
+                <div class="stat-icon blue"><i class="fas fa-list"></i></div>
+                <div class="stat-info">
+                    <h3 id="historyTotalSales">0</h3>
+                    <p>Total Sales</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green"><i class="fas fa-coins"></i></div>
+                <div class="stat-info">
+                    <h3 id="historyTotalRevenue">KES 0.00</h3>
+                    <p>Total Revenue</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon orange"><i class="fas fa-calculator"></i></div>
+                <div class="stat-info">
+                    <h3 id="historyAvgSale">KES 0.00</h3>
+                    <p>Average Sale</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Invoice #</th>
+                        <th>Customer</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Payment</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="salesHistoryTable"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- END SALES PAGE -->
+
+
+<script src="../app.js"></script>
+
+</body>
+
+</html>
