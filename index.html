@@ -226,6 +226,116 @@
             <!-- DASHBOARD CONTENT -->
             <main class="content">
                 <div class="page-header">
+                    <!-- Stats Row -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon blue"><i class="fas fa-box"></i></div>
+        <div class="stat-info">
+            <h3 id="statTotalProducts">0</h3>
+            <p>Total Products</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon green"><i class="fas fa-coins"></i></div>
+        <div class="stat-info">
+            <h3 id="statStockValue">KES 0</h3>
+            <p>Stock Value</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon orange"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="stat-info">
+            <h3 id="statLowStock">0</h3>
+            <p>Low Stock Items</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon purple"><i class="fas fa-ban"></i></div>
+        <div class="stat-info">
+            <h3 id="statOutOfStock">0</h3>
+            <p>Out of Stock</p>
+        </div>
+    </div>
+</div>
+
+<!-- Add/Edit Product Form -->
+<div class="card">
+    <div class="card-header">
+        <h3 id="formTitle">Add New Product</h3>
+    </div>
+    <div class="card-body">
+        <form id="productForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="pName" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" id="pCategory" list="categoryList" required>
+                    <datalist id="categoryList"></datalist>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Buying Price (KES)</label>
+                    <input type="number" id="pBuying" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label>Selling Price (KES)</label>
+                    <input type="number" id="pSelling" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" id="pQuantity" min="0" required>
+                </div>
+            </div>
+            <div style="display:flex;gap:10px;">
+                <button type="submit" id="submitProductBtn" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Product
+                </button>
+                <button type="button" id="cancelEditBtn" class="btn btn-outline">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Products Table -->
+<div class="card">
+    <div class="card-header">
+        <h3>All Products</h3>
+        <div style="display:flex;gap:10px;">
+            <input type="text" id="productSearch" placeholder="Search products..." 
+                   style="padding:8px 12px;border:1px solid #e2e8f0;border-radius:6px;">
+            <select id="categoryFilter" style="padding:8px 12px;border:1px solid #e2e8f0;border-radius:6px;">
+                <option>All</option>
+            </select>
+            <button id="exportProductsBtn" class="btn btn-outline">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Product</th>
+                        <th>Buying</th>
+                        <th>Selling</th>
+                        <th>Stock</th>
+                        <th>Profit/Unit</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productsTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
                     <div>
                         <h1 class="page-title">Dashboard</h1>
                         <p class="page-subtitle">Welcome back! Here's what's happening today.</p>
