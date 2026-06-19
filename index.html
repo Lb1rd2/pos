@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KenyaPOS - Professional Point of Sale System">
+    <title>KenyaPOS - Point of Sale System</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ============ LOGIN SCREEN ============ -->
+    <section id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-brand">
+                <div class="brand-logo">
+                    <i class="fas fa-cash-register"></i>
+                </div>
+                <h1>Kenya<span>POS</span></h1>
+                <p>Professional Point of Sale System</p>
+            </div>
+
+            <form id="loginForm" class="login-form" onsubmit="return false;">
+                <h2>Welcome Back</h2>
+                <p class="login-subtitle">Sign in to continue to your account</p>
+
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i> Username
+                    </label>
+                    <input type="text" id="username" placeholder="Enter your username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+
+                <button type="submit" id="loginBtn" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+
+                <div class="login-footer">
+                    <p>© 2026 KenyaPOS. All rights reserved.</p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- ============ MAIN APPLICATION ============ -->
+    <div id="appContainer" class="app-container" style="display: none;">
+
+        <!-- SIDEBAR -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo small">
+                    <i class="fas fa-cash-register"></i>
+                </div>
+                <div class="brand-text">
+                    <h2>Kenya<span>POS</span></h2>
+                    <small>v1.0.0</small>
+                </div>
+                <button class="sidebar-close" id="sidebarClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item active" data-page="dashboard">
+                        <a href="#">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="sales">
+                        <a href="#">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Sales</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="products">
+                        <a href="#">
+                            <i class="fas fa-box"></i>
+                            <span>Products</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="inventory">
+                        <a href="#">
+                            <i class="fas fa-warehouse"></i>
+                            <span>Inventory</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="purchases">
+                        <a href="#">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span>Purchases</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="customers">
+                        <a href="#">
+                            <i class="fas fa-users"></i>
+                            <span>Customers</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="suppliers">
+                        <a href="#">
+                            <i class="fas fa-truck"></i>
+                            <span>Suppliers</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="expenses">
+                        <a href="#">
+                            <i class="fas fa-receipt"></i>
+                            <span>Expenses</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="reports">
+                        <a href="#">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="employees">
+                        <a href="#">
+                            <i class="fas fa-user-tie"></i>
+                            <span>Employees</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="users">
+                        <a href="#">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="settings">
+                        <a href="#">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-card">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="user-info">
+                        <h4>Admin User</h4>
+                        <small>Administrator</small>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <div class="main-wrapper">
+
+            <!-- TOP NAVIGATION BAR -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search products, customers, orders...">
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+                    <div class="topbar-item currency">
+                        <i class="fas fa-coins"></i>
+                        <span>KES</span>
+                    </div>
+
+                    <div class="topbar-item date-display">
+                        <i class="far fa-calendar"></i>
+                        <span id="currentDate">Friday, Jun 19, 2026</span>
+                    </div>
+
+                    <button class="topbar-btn" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+
+                    <button class="topbar-btn" title="Messages">
+                        <i class="fas fa-envelope"></i>
+                        <span class="badge">5</span>
+                    </button>
+
+                    <div class="user-dropdown">
+                        <button class="user-trigger">
+                            <div class="user-avatar-sm">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <span class="user-name">Admin</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="#"><i class="fas fa-user"></i> My Profile</a>
+                            <a href="#"><i class="fas fa-cog"></i> Account Settings</a>
+                            <a href="#"><i class="fas fa-question-circle"></i> Help Center</a>
+                            <div class="divider"></div>
+                            <a href="#" id="logoutBtn" class="logout-link">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- DASHBOARD CONTENT -->
+            <main class="content">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Dashboard</h1>
+                        <p class="page-subtitle">Welcome back! Here's what's happening today.</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-outline">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i> New Sale
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STATS CARDS -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>KES 245,800</h3>
+                            <p>Today's Sales</p>
+                            <span class="stat-trend up">
+                                <i class="fas fa-arrow-up"></i> 12.5%
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>KES 1,248,500</h3>
+                            <p>Monthly Revenue</p>
+                            <span class="stat-trend up">
+                                <i class="fas fa-arrow-up"></i> 8.2%
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>1,284</h3>
+                            <p>Total Products</p>
+                            <span class="stat-trend down">
+                                <i class="fas fa-arrow-down"></i> 2.1%
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>842</h3>
+                            <p>Active Customers</p>
+                            <span class="stat-trend up">
+                                <i class="fas fa-arrow-up"></i> 5.7%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHARTS ROW -->
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Sales Overview</h3>
+                            <select class="select-sm">
+                                <option>Last 7 days</option>
+                                <option>Last 30 days</option>
+                                <option>This year</option>
+                            </select>
+                        </div>
+                        <div class="card-body chart-placeholder">
+                            <div class="chart-bars">
+                                <div class="bar" style="height: 40%;"><span>Mon</span></div>
+                                <div class="bar" style="height: 65%;"><span>Tue</span></div>
+                                <div class="bar" style="height: 55%;"><span>Wed</span></div>
+                                <div class="bar" style="height: 80%;"><span>Thu</span></div>
+                                <div class="bar active" style="height: 95%;"><span>Fri</span></div>
+                                <div class="bar" style="height: 70%;"><span>Sat</span></div>
+                                <div class="bar" style="height: 45%;"><span>Sun</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Top Products</h3>
+                            <a href="#" class="link">View All</a>
+                        </div>
+                        <div class="card-body">
+                            <ul class="top-products-list">
+                                <li>
+                                    <div class="product-info">
+                                        <div class="product-icon"><i class="fas fa-bread-slice"></i></div>
+                                        <div>
+                                            <h4>Bread Loaf</h4>
+                                            <small>324 sold</small>
+                                        </div>
+                                    </div>
+                                    <strong>KES 48,600</strong>
+                                </li>
+                                <li>
+                                    <div class="product-info">
+                                        <div class="product-icon"><i class="fas fa-mug-hot"></i></div>
+                                        <div>
+                                            <h4>Premium Coffee</h4>
+                                            <small>287 sold</small>
+                                        </div>
+                                    </div>
+                                    <strong>KES 43,050</strong>
+                                </li>
+                                <li>
+                                    <div class="product-info">
+                                        <div class="product-icon"><i class="fas fa-apple-alt"></i></div>
+                                        <div>
+                                            <h4>Fresh Apples (kg)</h4>
+                                            <small>198 sold</small>
+                                        </div>
+                                    </div>
+                                    <strong>KES 39,600</strong>
+                                </li>
+                                <li>
+                                    <div class="product-info">
+                                        <div class="product-icon"><i class="fas fa-cheese"></i></div>
+                                        <div>
+                                            <h4>Cheddar Cheese</h4>
+                                            <small>156 sold</small>
+                                        </div>
+                                    </div>
+                                    <strong>KES 31,200</strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RECENT TRANSACTIONS -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Recent Transactions</h3>
+                        <a href="#" class="link">View All Transactions</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Invoice #</th>
+                                        <th>Customer</th>
+                                        <th>Product</th>
+                                        <th>Amount</th>
+                                        <th>Payment</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>#INV-2026-001</strong></td>
+                                        <td>John Kamau</td>
+                                        <td>Groceries Bundle</td>
+                                        <td>KES 4,500</td>
+                                        <td><i class="fas fa-mobile-alt"></i> M-Pesa</td>
+                                        <td><span class="status-badge success">Completed</span></td>
+                                        <td>Jun 19, 2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>#INV-2026-002</strong></td>
+                                        <td>Mary Wanjiku</td>
+                                        <td>Electronics</td>
+                                        <td>KES 12,800</td>
+                                        <td><i class="fas fa-credit-card"></i> Card</td>
+                                        <td><span class="status-badge success">Completed</span></td>
+                                        <td>Jun 19, 2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>#INV-2026-003</strong></td>
+                                        <td>Peter Ochieng</td>
+                                        <td>Household Items</td>
+                                        <td>KES 2,350</td>
+                                        <td><i class="fas fa-money-bill"></i> Cash</td>
+                                        <td><span class="status-badge warning">Pending</span></td>
+                                        <td>Jun 19, 2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>#INV-2026-004</strong></td>
+                                        <td>Grace Muthoni</td>
+                                        <td>Beverages</td>
+                                        <td>KES 1,200</td>
+                                        <td><i class="fas fa-mobile-alt"></i> M-Pesa</td>
+                                        <td><span class="status-badge success">Completed</span></td>
+                                        <td>Jun 18, 2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>#INV-2026-005</strong></td>
+                                        <td>David Kipchoge</td>
+                                        <td>Sports Equipment</td>
+                                        <td>KES 8,900</td>
+                                        <td><i class="fas fa-credit-card"></i> Card</td>
+                                        <td><span class="status-badge danger">Refunded</span></td>
+                                        <td>Jun 18, 2026</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOOTER -->
+                <footer class="footer">
+                    <p>© 2026 <strong>KenyaPOS</strong>. All rights reserved. | Version 1.0.0</p>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
