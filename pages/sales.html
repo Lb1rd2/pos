@@ -1,0 +1,178 @@
+<!-- Sales Stats -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon blue"><i class="fas fa-receipt"></i></div>
+        <div class="stat-info">
+            <h3 id="statTodaySales">-</h3>
+            <p>Today's Sales</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon green"><i class="fas fa-shopping-cart"></i></div>
+        <div class="stat-info">
+            <h3 id="statTodayCount">-</h3>
+            <p>Transactions</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon orange"><i class="fas fa-mobile-alt"></i></div>
+        <div class="stat-info">
+            <h3 id="statMpesaToday">-</h3>
+            <p>M-Pesa Today</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon purple"><i class="fas fa-chart-line"></i></div>
+        <div class="stat-info">
+            <h3 id="statAvgSale">-</h3>
+            <p>Average Sale</p>
+        </div>
+    </div>
+</div>
+
+<!-- POS Layout -->
+<div class="pos-layout">
+    <!-- Left: Product Search -->
+    <div class="pos-products-panel">
+        <div class="pos-panel-header">
+            <h3><i class="fas fa-search"></i> Products</h3>
+        </div>
+        <div class="pos-panel-body">
+            <div class="pos-search-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="posProductSearch" 
+                       placeholder="Search by name, category, or scan barcode..."
+                       autocomplete="off">
+                <div class="pos-search-results" id="posSearchResults"></div>
+            </div>
+
+            <div style="margin-top: 20px; color: #94a3b8; font-size: 13px; text-align: center; padding: 40px 20px;">
+                <i class="fas fa-info-circle" style="font-size: 32px; display: block; margin-bottom: 10px;"></i>
+                Search for products above and click to add them to the cart.
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Cart -->
+    <div class="pos-cart-panel">
+        <div class="pos-panel-header">
+            <h3><i class="fas fa-shopping-cart"></i> Cart</h3>
+            <span class="pos-cart-count" id="posCartCount">0 items</span>
+        </div>
+
+        <div class="pos-panel-body" style="min-height: 250px;">
+            <div id="posCartItems"></div>
+            <div id="posCartEmpty">
+                <i class="fas fa-shopping-basket"></i>
+                <p>Cart is empty</p>
+                <small>Add products to get started</small>
+            </div>
+        </div>
+
+        <div class="pos-cart-summary">
+            <div class="pos-summary-row">
+                <span>Subtotal:</span>
+                <span id="posSubtotal">KES 0.00</span>
+            </div>
+            <div class="pos-summary-row discount">
+                <span>Discount:</span>
+                <span id="posDiscountAmount">- KES 0.00</span>
+            </div>
+            <div class="pos-summary-row">
+                <span>VAT (16%):</span>
+                <span id="posTaxAmount">KES 0.00</span>
+            </div>
+            <div class="pos-summary-row total-row">
+                <span>TOTAL:</span>
+                <span id="posTotal">KES 0.00</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Checkout Form -->
+<div class="pos-checkout-section">
+    <div class="pos-form-row three">
+        <div class="pos-form-group">
+            <label>Customer Name</label>
+            <input type="text" id="posCustomer" placeholder="Walk-in customer" value="Walk-in">
+        </div>
+        <div class="pos-form-group">
+            <label>Discount</label>
+            <input type="number" id="posDiscount" value="0" min="0" step="0.01">
+        </div>
+        <div class="pos-form-group">
+            <label>Discount Type</label>
+            <select id="posDiscountType">
+                <option value="percent">Percentage (%)</option>
+                <option value="fixed">Fixed (KES)</option>
+            </select>
+        </div>
+    </div>
+
+    <label class="pos-tax-toggle">
+        <input type="checkbox" id="posTaxToggle" checked>
+        Apply VAT (16%)
+    </label>
+
+    <h4>Payment Method</h4>
+    <div class="payment-methods">
+        <label class="payment-method-option">
+            <input type="radio" name="paymentMethod" value="cash" checked>
+            <div class="payment-method-label">
+                <i class="fas fa-money-bill-wave"></i>
+                <span>Cash</span>
+            </div>
+        </label>
+        <label class="payment-method-option">
+            <input type="radio" name="paymentMethod" value="mpesa">
+            <div class="payment-method-label">
+                <i class="fas fa-mobile-alt"></i>
+                <span>M-Pesa</span>
+            </div>
+        </label>
+        <label class="payment-method-option">
+            <input type="radio" name="paymentMethod" value="card">
+            <div class="payment-method-label">
+                <i class="fas fa-credit-card"></i>
+                <span>Card</span>
+            </div>
+        </label>
+    </div>
+
+    <div id="payment-cash" class="payment-field-group" style="display:block;">
+        <div class="pos-form-group">
+            <label>Cash Received (KES)</label>
+            <input type="number" id="posCashReceived" min="0" step="0.01" placeholder="0.00">
+        </div>
+        <div class="pos-change-row" id="posChangeRow">
+            <span>Change:</span>
+            <span class="pos-change-amount" id="posChangeAmount">KES 0.00</span>
+        </div>
+    </div>
+
+    <div id="payment-mpesa" class="payment-field-group">
+        <div class="pos-form-group">
+            <label>M-Pesa Transaction Code</label>
+            <input type="text" id="posMpesaRef" placeholder="e.g. SJK3AB7XYZ" 
+                   style="text-transform: uppercase;">
+        </div>
+    </div>
+
+    <div id="payment-card" class="payment-field-group">
+        <div class="pos-form-group">
+            <label style="color:#64748b; font-size:12px;">
+                <i class="fas fa-info-circle"></i> Process card payment via POS terminal
+            </label>
+        </div>
+    </div>
+
+    <div class="pos-actions">
+        <button class="btn btn-outline" id="posClearCartBtn">
+            <i class="fas fa-trash"></i> Clear Cart
+        </button>
+        <button class="btn btn-complete" id="posCompleteSaleBtn">
+            <i class="fas fa-check-circle"></i> Complete Sale
+        </button>
+    </div>
+</div>
