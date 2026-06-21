@@ -6,10 +6,12 @@
     <meta name="description" content="POS - Professional Point of Sale System">
     <title>POS - Point of Sale System</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
+    <!-- ============ LOGIN SCREEN ============ -->
     <section id="loginScreen" class="login-screen">
         <div class="login-container">
             <div class="login-brand">
@@ -56,8 +58,10 @@
         </div>
     </section>
 
+    <!-- ============ MAIN APPLICATION ============ -->
     <div id="appContainer" class="app-container" style="display: none;">
 
+        <!-- SIDEBAR -->
         <aside id="sidebar" class="sidebar">
             <div class="sidebar-header">
                 <div class="brand-logo small">
@@ -162,8 +166,10 @@
             </div>
         </aside>
 
+        <!-- MAIN CONTENT AREA -->
         <div class="main-wrapper">
 
+            <!-- TOP NAVIGATION BAR -->
             <header class="topbar">
                 <div class="topbar-left">
                     <button class="menu-toggle" id="menuToggle">
@@ -216,9 +222,119 @@
                 </div>
             </header>
 
+            <!-- DASHBOARD CONTENT -->
             <main class="content">
-                
                 <div class="page-header">
+                    <!-- Stats Row -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon blue"><i class="fas fa-box"></i></div>
+        <div class="stat-info">
+            <h3 id="statTotalProducts">0</h3>
+            <p>Total Products</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon green"><i class="fas fa-coins"></i></div>
+        <div class="stat-info">
+            <h3 id="statStockValue">KES 0</h3>
+            <p>Stock Value</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon orange"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="stat-info">
+            <h3 id="statLowStock">0</h3>
+            <p>Low Stock Items</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon purple"><i class="fas fa-ban"></i></div>
+        <div class="stat-info">
+            <h3 id="statOutOfStock">0</h3>
+            <p>Out of Stock</p>
+        </div>
+    </div>
+</div>
+
+<!-- Add/Edit Product Form -->
+<div class="card">
+    <div class="card-header">
+        <h3 id="formTitle">Add New Product</h3>
+    </div>
+    <div class="card-body">
+        <form id="productForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="pName" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" id="pCategory" list="categoryList" required>
+                    <datalist id="categoryList"></datalist>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Buying Price (KES)</label>
+                    <input type="number" id="pBuying" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label>Selling Price (KES)</label>
+                    <input type="number" id="pSelling" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" id="pQuantity" min="0" required>
+                </div>
+            </div>
+            <div style="display:flex;gap:10px;">
+                <button type="submit" id="submitProductBtn" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Product
+                </button>
+                <button type="button" id="cancelEditBtn" class="btn btn-outline">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Products Table -->
+<div class="card">
+    <div class="card-header">
+        <h3>All Products</h3>
+        <div style="display:flex;gap:10px;">
+            <input type="text" id="productSearch" placeholder="Search products..." 
+                   style="padding:8px 12px;border:1px solid #e2e8f0;border-radius:6px;">
+            <select id="categoryFilter" style="padding:8px 12px;border:1px solid #e2e8f0;border-radius:6px;">
+                <option>All</option>
+            </select>
+            <button id="exportProductsBtn" class="btn btn-outline">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Product</th>
+                        <th>Buying</th>
+                        <th>Selling</th>
+                        <th>Stock</th>
+                        <th>Profit/Unit</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productsTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
                     <div>
                         <h1 class="page-title">Dashboard</h1>
                         <p class="page-subtitle">Welcome back! Here's what's happening today.</p>
@@ -233,6 +349,7 @@
                     </div>
                 </div>
 
+                <!-- STATS CARDS -->
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon blue">
@@ -262,4 +379,189 @@
 
                     <div class="stat-card">
                         <div class="stat-icon orange">
-                            <i class
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>1,284</h3>
+                            <p>Total Products</p>
+                            <span class="stat-trend down">
+                                <i class="fas fa-arrow-down"></i> 2.1%
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>842</h3>
+                            <p>Active Customers</p>
+                            <span class="stat-trend up">
+                                <i class="fas fa-arrow-up"></i> 5.7%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHARTS ROW -->
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Sales Overview</h3>
+                            <select class="select-sm">
+                                <option>Last 7 days</option>
+                                <option>Last 30 days</option>
+                                <option>This year</option>
+                            </select>
+                        </div>
+                        <div class="card-body chart-placeholder">
+                            <div class="chart-bars">
+                                <div class="bar" style="height: 40%;"><span>Mon</span></div>
+                                <div class="bar" style="height: 65%;"><span>Tue</span></div>
+                                <div class="bar" style="height: 55%;"><span>Wed</span></div>
+                                <div class="bar" style="height: 80%;"><span>Thu</span></div>
+                                <div class="bar active" style="height: 95%;"><span>Fri</span></div>
+                                <div class="bar" style="height: 70%;"><span>Sat</span></div>
+                                <div class="bar" style="height: 45%;"><span>Sun</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Top Products</h3>
+                            <a href="#" class="link">View All</a>
+                        </div>
+                        <div class="card-body">
+                            <ul class="top-products-list">
+                                <li>
+                                    <div class="product-info">
+                                        <div class="product-icon"><i class="fas fa-bread-slice"></i></div>
+                                        <div>
+                                            <h4>Bread Loaf</h4>
+                                            <small>324 sold</small>
+                                        </div>
+                                    </div>
+                                    <strong>KES 48,600</strong>
+                                </li>
+                                <li>
+                                    <div class="product-info">
+                                        <div class="product-icon"><i class="fas fa-mug-hot"></i></div>
+                                        <div>
+                                            <h4>Premium Coffee</h4>
+                                            <small>287 sold</small>
+                                        </div>
+                                    </div>
+                                    <strong>KES 43,050</strong>
+                                </li>
+                                <li>
+                                    <div class="product-info">
+                                        <div class="product-icon"><i class="fas fa-apple-alt"></i></div>
+                                        <div>
+                                            <h4>Fresh Apples (kg)</h4>
+                                            <small>198 sold</small>
+                                        </div>
+                                    </div>
+                                    <strong>KES 39,600</strong>
+                                </li>
+                                <li>
+                                    <div class="product-info">
+                                        <div class="product-icon"><i class="fas fa-cheese"></i></div>
+                                        <div>
+                                            <h4>Cheddar Cheese</h4>
+                                            <small>156 sold</small>
+                                        </div>
+                                    </div>
+                                    <strong>KES 31,200</strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RECENT TRANSACTIONS -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Recent Transactions</h3>
+                        <a href="#" class="link">View All Transactions</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Invoice #</th>
+                                        <th>Customer</th>
+                                        <th>Product</th>
+                                        <th>Amount</th>
+                                        <th>Payment</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>#INV-2026-001</strong></td>
+                                        <td>John Kamau</td>
+                                        <td>Groceries Bundle</td>
+                                        <td>KES 4,500</td>
+                                        <td><i class="fas fa-mobile-alt"></i> M-Pesa</td>
+                                        <td><span class="status-badge success">Completed</span></td>
+                                        <td>Jun 19, 2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>#INV-2026-002</strong></td>
+                                        <td>Mary Wanjiku</td>
+                                        <td>Electronics</td>
+                                        <td>KES 12,800</td>
+                                        <td><i class="fas fa-credit-card"></i> Card</td>
+                                        <td><span class="status-badge success">Completed</span></td>
+                                        <td>Jun 19, 2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>#INV-2026-003</strong></td>
+                                        <td>Peter Ochieng</td>
+                                        <td>Household Items</td>
+                                        <td>KES 2,350</td>
+                                        <td><i class="fas fa-money-bill"></i> Cash</td>
+                                        <td><span class="status-badge warning">Pending</span></td>
+                                        <td>Jun 19, 2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>#INV-2026-004</strong></td>
+                                        <td>Grace Muthoni</td>
+                                        <td>Beverages</td>
+                                        <td>KES 1,200</td>
+                                        <td><i class="fas fa-mobile-alt"></i> M-Pesa</td>
+                                        <td><span class="status-badge success">Completed</span></td>
+                                        <td>Jun 18, 2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>#INV-2026-005</strong></td>
+                                        <td>David Kipchoge</td>
+                                        <td>Sports Equipment</td>
+                                        <td>KES 8,900</td>
+                                        <td><i class="fas fa-credit-card"></i> Card</td>
+                                        <td><span class="status-badge danger">Refunded</span></td>
+                                        <td>Jun 21, 2026</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOOTER -->
+                <footer class="footer">
+                    <p>© 2026 <strong>POS</strong>. All rights reserved. | Version 1.0.0</p>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+<script src="products.js"></script>
+<script src="sales.js"></script>
+</body>
+</html>
