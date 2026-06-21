@@ -115,7 +115,7 @@
                 afterDiscount: after,
                 tax,
                 total: after + tax
-            };
+            },
         },
         paidAmount() {
             return State.payments.reduce((s, p) => s + parseFloat(p.amount || 0), 0);
@@ -126,7 +126,7 @@
         change() {
             return Math.max(0, this.paidAmount() - this.total().total);
         }
-    },
+    };
 
     /* ============ CUSTOMER MODULE ============ */
     Customers = {
@@ -136,7 +136,7 @@
 
         findByPhone(phone) {
             return State.customers.find(c => c.phone === phone);
-        },
+        };
 
         add(data) {
             const customer = {
@@ -379,7 +379,7 @@
             const input = document.getElementById('barcodeInput');
             if (input) input.value = '';
         }
-    },
+    };
 
     /* ============ SALES RECORDING ============ */
     const Sales = {
