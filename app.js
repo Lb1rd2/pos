@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initUserDropdown();
     initLogout();
     updateCurrentDate();
+    // Hide inventory sections by default (they start with display:none in HTML)
 });
 
 /* ============ LOGIN ============ */
@@ -106,11 +107,8 @@ function initNavigation() {
                 pageTitle.textContent = pageName;
             }
 
-            // Hide all page sections
-            hideAllSections();
-
-            // Show the selected page
-            showPage(page);
+            // Handle page visibility
+            handlePageNavigation(page);
 
             // Close sidebar on mobile
             if (window.innerWidth <= 768) {
@@ -124,44 +122,73 @@ function initNavigation() {
     });
 }
 
-/* ============ PAGE VISIBILITY MANAGEMENT ============ */
-function hideAllSections() {
-    // Hide all special page sections
-    const sections = [
-        'inventorySection',
-        'stockAdjustmentCard',
-        'stockAlertsCard',
-        'stockMovementsCard',
-        'damagedProductsCard'
+/* ============ PAGE NAVIGATION HANDLER ============ */
+function handlePageNavigation(page) {
+    // Define which sections should be visible for each page
+    const pageVisibility = {
+        dashboard: {
+            dashboardContent: true,
+            inventoryContent: false
+        },
+        inventory: {
+            dashboardContent: false,
+            inventoryContent: true
+        },
+        products: {
+            dashboardContent: true,
+            inventoryContent: false
+        },
+        sales: {
+            dashboardContent: true,
+            inventoryContent: false
+        },
+        default: {
+            dashboardContent: true,
+            inventoryContent: false
+        }
+    };
+
+    const visibility = pageVisibility[page] || pageVisibility.default;
+
+    // Hide/Show dashboard content (stats, products form, products table)
+    const dashboardElements = [
+        'statTotalProducts',
+        'statStockValue', 
+        'statLowStock',
+        'statOutOfStock'
     ];
     
-    sections.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.style.display = 'none';
+    dashboardElements.forEach(id => {
+        const parent = document.getElementById(id);
+        if (parent) {
+            let container = parent.closest('.stats-grid');
+            if (container) container.style.display = visibility.dashboardContent ? 'grid' : 'none';
+        }
     });
-}
 
-function showPage(page) {
-    switch(page) {
-        case 'inventory':
-            document.getElementById('inventorySection')?.style.removeProperty('display');
-            document.getElementById('stockAdjustmentCard')?.style.removeProperty('display');
-            document.getElementById('stockAlertsCard')?.style.removeProperty('display');
-            document.getElementById('stockMovementsCard')?.style.removeProperty('display');
-            document.getElementById('damagedProductsCard')?.style.removeProperty('display');
-            
-            // Initialize inventory module if available
-            if (typeof Inventory !== 'undefined') {
-                setTimeout(() => Inventory.init(), 100);
-            }
-            break;
-        case 'products':
-            // Products page logic if needed
-            break;
-        case 'sales':
-            // Sales page logic if needed
-            break;
-        // Add more cases as needed
+    // Also hide the product form and table for inventory page
+    const productCards = document.querySelectorAll('.card');
+    productCards.forEach(card => {
+        const hasFormTitle = card.querySelector('#formTitle');
+        const hasProductTable = card.querySelector('#productsTableBody');
+        
+        if (hasFormTitle || hasProductTable) {
+            card.style.display = visibility.dashboardContent ? 'block' : 'none';
+        }
+    });
+
+    // Show/Hide inventory sections
+    document.getElementById('inventorySection').style.display = visibility.inventoryContent ? 'block' : 'none';
+    document.getElementById('stockAdjustmentCard').style.display = visibility.inventoryContent ? 'block' : 'none';
+    document.getElementById('stockAlertsCard').style.display = visibility.inventoryContent ? 'block' : 'none';
+    document.getElementById('stockMovementsCard').style.display = visibility.inventoryContent ? 'block' : 'none';
+    document.getElementById('damagedProductsCard').style.display = visibility.inventoryContent ? 'block' : 'none';
+
+    // Initialize inventory if navigating to inventory page
+    if (page === 'inventory' && typeof Inventory !== 'undefined') {
+        setTimeout(() => {
+            Inventory.init();
+        }, 100);
     }
 }
 
