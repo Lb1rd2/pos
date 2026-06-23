@@ -106,6 +106,12 @@ function initNavigation() {
                 pageTitle.textContent = pageName;
             }
 
+            // Hide all page sections
+            hideAllSections();
+
+            // Show the selected page
+            showPage(page);
+
             // Close sidebar on mobile
             if (window.innerWidth <= 768) {
                 document.getElementById('sidebar').classList.remove('active');
@@ -116,6 +122,47 @@ function initNavigation() {
             showNotification('Navigated to ' + page.charAt(0).toUpperCase() + page.slice(1), 'info');
         });
     });
+}
+
+/* ============ PAGE VISIBILITY MANAGEMENT ============ */
+function hideAllSections() {
+    // Hide all special page sections
+    const sections = [
+        'inventorySection',
+        'stockAdjustmentCard',
+        'stockAlertsCard',
+        'stockMovementsCard',
+        'damagedProductsCard'
+    ];
+    
+    sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+    });
+}
+
+function showPage(page) {
+    switch(page) {
+        case 'inventory':
+            document.getElementById('inventorySection')?.style.removeProperty('display');
+            document.getElementById('stockAdjustmentCard')?.style.removeProperty('display');
+            document.getElementById('stockAlertsCard')?.style.removeProperty('display');
+            document.getElementById('stockMovementsCard')?.style.removeProperty('display');
+            document.getElementById('damagedProductsCard')?.style.removeProperty('display');
+            
+            // Initialize inventory module if available
+            if (typeof Inventory !== 'undefined') {
+                setTimeout(() => Inventory.init(), 100);
+            }
+            break;
+        case 'products':
+            // Products page logic if needed
+            break;
+        case 'sales':
+            // Sales page logic if needed
+            break;
+        // Add more cases as needed
+    }
 }
 
 /* ============ USER DROPDOWN ============ */
