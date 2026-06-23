@@ -164,6 +164,18 @@ function updateCurrentDate() {
     dateEl.textContent = now.toLocaleDateString('en-US', options);
 }
 
+// After DOM loads, populate product dropdown
+document.addEventListener('DOMContentLoaded', () => {
+    const pm = new ProductManager();
+    const products = pm.getAll();
+    const select = document.getElementById('adjustmentProduct');
+    
+    if (select && products.length > 0) {
+        select.innerHTML = '<option value="">Select product...</option>' +
+            products.map(p => `<option value="${p.id}">${p.name} (Stock: ${p.quantity})</option>`).join('');
+    }
+});
+
 /* ============ NOTIFICATIONS ============ */
 function showNotification(message, type) {
     // Remove existing notifications
